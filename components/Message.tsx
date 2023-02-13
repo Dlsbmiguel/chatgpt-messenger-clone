@@ -10,8 +10,8 @@ const Message = ({ message }: Props) => {
   return (
     <div className={`py-5 text-white ${isChatGPT && "bg-[#434654]"}`}>
       <div className="flex max-w-2xl px-10 mx-auto space-x-5">
-        <img src={message.user.avatar} alt="" className="h-10 rounded-full" />
-        <p className="">{message.text}</p>
+        <img src={message.user.avatar} alt="" className="w-8 h-8 " />
+        <p className="pt-1 text-sm">{message.text}</p>
       </div>
     </div>
   );

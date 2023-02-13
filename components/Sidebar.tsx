@@ -6,6 +6,7 @@ import { collection, orderBy, query } from "firebase/firestore";
 import { signOut, useSession } from "next-auth/react";
 import { useCollection } from "react-firebase-hooks/firestore";
 import ChatRow from "./ChatRow";
+import ModelSelection from "./ModelSelection";
 import NewChat from "./NewChat";
 
 const Sidebar = () => {
@@ -24,11 +25,20 @@ const Sidebar = () => {
       <div className="flex-1">
         <div className="">
           <NewChat />
-          <div className="">{/*ModelSelection*/}</div>
-          {/* Map through the ChatRows*/}
-          {chats?.docs.map((chat) => (
-            <ChatRow key={chat.id} id={chat.id} />
-          ))}
+          <div className="hidden sm:inline">
+            <ModelSelection />
+          </div>
+          <div className="flex flex-col my-2 space-y-2">
+            {loading && (
+              <div className="text-center text-white animate-pulse">
+                <p>Loading Chats...</p>
+              </div>
+            )}
+            {/* Map through the ChatRows*/}
+            {chats?.docs.map((chat) => (
+              <ChatRow key={chat.id} id={chat.id} />
+            ))}
+          </div>
         </div>
       </div>
 
@@ -36,7 +46,7 @@ const Sidebar = () => {
         <img
           onClick={() => signOut()}
           src={session.user?.image!}
-          alt="Porfile picture"
+          alt="Profile picture"
           className="w-12 h-12 mx-auto mb-2 rounded-full cursor-pointer hover:opacity-50"
         />
       )}

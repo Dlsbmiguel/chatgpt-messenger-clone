@@ -1,5 +1,6 @@
 "use client";
 import { db } from "@/firebase";
+import { ArrowDownCircleIcon } from "@heroicons/react/24/outline";
 import { collection, orderBy, query } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import { useCollection } from "react-firebase-hooks/firestore";
@@ -27,7 +28,15 @@ const Chat = ({ chatId }: Props) => {
   );
 
   return (
-    <div className="flex-1">
+    <div className="flex-1 overflow-x-hidden overflow-y-auto">
+      {messages?.empty && (
+        <>
+          <p className="mt-10 text-center text-white">
+            Type a prompt in below to get started!
+          </p>
+          <ArrowDownCircleIcon className="w-10 h-10 mx-auto mt-5 text-white animate-bounce" />
+        </>
+      )}
       {messages?.docs.map((message) => (
         <Message key={message.id} message={message.data()} />
       ))}
